@@ -16,7 +16,10 @@ public:
 	void InitSceneGraphy();
 	void InitCameraConfig();
 	void PreFrameUpdate();
+	void PostFrameUpdate();
 	static void Render(void* ptr);
+
+	osgViewer::Viewer* getViewer();
 
 private:
 	HWND m_hWnd;

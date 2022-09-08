@@ -43,7 +43,8 @@ END_MESSAGE_MAP()
 
 CDigitalEarthView::CDigitalEarthView() noexcept
 {
-	// TODO: 在此处添加构造代码
+	mOSG = 0;
+	mThreadHandle = 0;
 
 }
 
@@ -114,7 +115,7 @@ int CDigitalEarthView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if (CView::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
-	// TODO:  在此添加您专用的创建代码
+	mOSG = new COSGObject(m_hWnd);
 
 	return 0;
 }
@@ -122,7 +123,14 @@ int CDigitalEarthView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 BOOL CDigitalEarthView::OnEraseBkgnd(CDC* pDC)
 {
-	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	if (0 == mOSG)
+	{
+		return CView::OnEraseBkgnd(pDC);
+	}
+	else
+	{
+		return FALSE;
+	}
 
 	return CView::OnEraseBkgnd(pDC);
 }
@@ -132,5 +140,6 @@ void CDigitalEarthView::OnInitialUpdate()
 {
 	CView::OnInitialUpdate();
 
-	// TODO: 在此添加专用代码和/或调用基类
+	mOSG->InitOSG();
+	mThreadHandle = (HANDLE)_beginthread(&COSGObject::Render, 0, mOSG);
 }

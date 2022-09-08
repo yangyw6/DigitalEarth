@@ -39,7 +39,7 @@
     <ClInclude Include="pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="COSGObject.h">
+    <ClInclude Include="OSGObject.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -59,7 +59,7 @@
     <ClCompile Include="pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="COSGObject.cpp">
+    <ClCompile Include="OSGObject.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -108,5 +108,6 @@
       <Filter>资源文件</Filter>
     </None>
     <None Include="ClassDiagram.cd" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "COSGObject.h"
+#include "OSGObject.h"
 
 COSGObject::COSGObject(HWND hWnd)
 {
@@ -44,6 +44,13 @@ void COSGObject::InitCameraConfig()
 	camera->setViewport(new osg::Viewport(traits->x, traits->y, traits->width, traits->height));
 	camera->setProjectionMatrixAsPerspective(30.0f, static_cast<double>(traits->width)/static_cast<double>(traits->height),1.0,1000.0);
 
+	mViewer->setCamera(camera);
+	mViewer->setCameraManipulator(new osgGA::TrackballManipulator);
+	mViewer->setSceneData(mRoot);
+	mViewer->realize();
+	mViewer->getCamera()->setComputeNearFarMode(osg::CullSettings::COMPUTE_NEAR_FAR_USING_PRIMITIVES);
+	mViewer->getCamera()->setNearFarRatio(0.000003f);
+
 }
 
 void COSGObject::PreFrameUpdate()
@@ -51,7 +58,25 @@ void COSGObject::PreFrameUpdate()
 
 }
 
+void COSGObject::PostFrameUpdate()
+{
+}
+
 void COSGObject::Render(void* ptr)
 {
+	COSGObject* osg = (COSGObject*)ptr;
+	osgViewer::Viewer* viewer = osg->getViewer();
+	while (!viewer->done())
+	{
+		osg->PreFrameUpdate();
+		viewer->frame();
+		osg->PostFrameUpdate();
+	}
 
+	_endthread();
+}
+
+osgViewer::Viewer* COSGObject::getViewer()
+{
+	return mViewer;
 }

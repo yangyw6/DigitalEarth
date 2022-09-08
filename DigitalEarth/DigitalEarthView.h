@@ -14,6 +14,9 @@
 
 #pragma once
 
+#include "DigitalEarthDoc.h"
+#include "OSGObject.h"
+
 
 class CDigitalEarthView : public CView
 {
@@ -24,6 +27,10 @@ protected: // 仅从序列化创建
 // 特性
 public:
 	CDigitalEarthDoc* GetDocument() const;
+
+public:
+	COSGObject* mOSG;
+	HANDLE mThreadHandle;
 
 // 操作
 public:

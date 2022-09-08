@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\vcpkg.D.dev.vcpkg.1.0.0\build\native\vcpkg.D.dev.vcpkg.props" Condition="Exists('..\packages\vcpkg.D.dev.vcpkg.1.0.0\build\native\vcpkg.D.dev.vcpkg.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -188,7 +189,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="COSGObject.h" />
+    <ClInclude Include="OSGObject.h" />
     <ClInclude Include="DigitalEarth.h" />
     <ClInclude Include="DigitalEarthDoc.h" />
     <ClInclude Include="DigitalEarthView.h" />
@@ -199,7 +200,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="COSGObject.cpp" />
+    <ClCompile Include="OSGObject.cpp" />
     <ClCompile Include="DigitalEarth.cpp" />
     <ClCompile Include="DigitalEarthDoc.cpp" />
     <ClCompile Include="DigitalEarthView.cpp" />
@@ -228,10 +229,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="packages.config" />
     <None Include="res\DigitalEarth.rc2" />
     <None Include="res\ribbon.mfcribbon-ms" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\vcpkg.D.dev.vcpkg.1.0.0\build\native\vcpkg.D.dev.vcpkg.targets" Condition="Exists('..\packages\vcpkg.D.dev.vcpkg.1.0.0\build\native\vcpkg.D.dev.vcpkg.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\vcpkg.D.dev.vcpkg.1.0.0\build\native\vcpkg.D.dev.vcpkg.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\vcpkg.D.dev.vcpkg.1.0.0\build\native\vcpkg.D.dev.vcpkg.props'))" />
+    <Error Condition="!Exists('..\packages\vcpkg.D.dev.vcpkg.1.0.0\build\native\vcpkg.D.dev.vcpkg.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\vcpkg.D.dev.vcpkg.1.0.0\build\native\vcpkg.D.dev.vcpkg.targets'))" />
+  </Target>
 </Project>
